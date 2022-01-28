@@ -1,0 +1,9 @@
+{
+	"name": "testdatafactoryforgc",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8039ac80-a676-4922-9804-9d1ec2e5c1ee",
+		"tenantId": "d31d9fdf-7b9c-4d0a-a59f-6f05b2f626c8"
+	}
+}
