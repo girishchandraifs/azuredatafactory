@@ -32,8 +32,71 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LookupEmailCsv",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LookupEmailCsv').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "SetEmail",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "temp_variable",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Emails",
+								"value": {
+									"value": "@variables('Temp_variable_Email')",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "temp_variable",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Temp_variable_Email",
+								"value": {
+									"value": "@concat(item().Email,';',variables('Emails'))",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
+		"variables": {
+			"Emails": {
+				"type": "String"
+			},
+			"Temp_variable_Email": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
