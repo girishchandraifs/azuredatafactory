@@ -52,7 +52,7 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Append_to_Date_Array",
+							"name": "Append_Name_Array",
 							"type": "AppendVariable",
 							"dependsOn": [],
 							"userProperties": [],
@@ -79,15 +79,43 @@
 							"typeProperties": {
 								"dataset": {
 									"referenceName": "getdynamicfilename",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileNamePar": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								},
-								"fieldList": [],
+								"fieldList": [
+									"lastModified"
+								],
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
 									"type": "DelimitedTextReadSettings"
+								}
+							}
+						},
+						{
+							"name": "Append_date",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Get Metadata2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Date_modified_Array",
+								"value": {
+									"value": "@int(formatDateTime(activity('Get Metadata2').output.lastModified,'yyyyMMddHHmmss'))",
+									"type": "Expression"
 								}
 							}
 						}
@@ -115,8 +143,8 @@
 				}
 			},
 			{
-				"name": "Set variable2",
-				"type": "SetVariable",
+				"name": "ForEach2",
+				"type": "ForEach",
 				"dependsOn": [
 					{
 						"activity": "ForEach1",
@@ -127,14 +155,34 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "LastModified_string",
-					"value": {
+					"items": {
 						"value": "@variables('Date_modified_Array')",
 						"type": "Expression"
-					}
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set variable3",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "LastModified_string",
+								"value": {
+									"value": "@string(greater(variables('Date_modified_Array'),variables('Dummy_value') ))",
+									"type": "Expression"
+								}
+							}
+						}
+					]
 				}
 			}
 		],
+		"parameters": {
+			"FIleName": {
+				"type": "string"
+			}
+		},
 		"variables": {
 			"File_Name_Array": {
 				"type": "Array"
@@ -146,7 +194,11 @@
 				"type": "Array"
 			},
 			"LastModified_string": {
-				"type": "Array"
+				"type": "String"
+			},
+			"Dummy_value": {
+				"type": "String",
+				"defaultValue": "'20000201102914'"
 			}
 		},
 		"annotations": []
