@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "pl_copy",
 	"properties": {
 		"activities": [
 			{
@@ -37,8 +37,28 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
-				}
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_input_folder",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_unknown",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []
