@@ -15,6 +15,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_input_folder",
+						"type": "DatasetReference"
+					},
 					"fieldList": [
 						"childItems"
 					],
@@ -60,8 +64,18 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
+								"dataset": {
+									"referenceName": "ds_unknown",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								},
 								"fieldList": [
-									"childItems",
+									"itemName",
 									"lastModified"
 								],
 								"storeSettings": {
@@ -73,11 +87,89 @@
 									"type": "DelimitedTextReadSettings"
 								}
 							}
+						},
+						{
+							"name": "Append variable1",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Get Metadata2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Item_name_Array",
+								"value": {
+									"value": "@activity('Get Metadata2').output.itemName",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Append variable2",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Get Metadata2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "last_modified_date_Array",
+								"value": {
+									"value": "@int(formatDateTime(activity('Get Metadata2').output.lastModified,'yyyyMMddHHmmss'))",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "lastmodified",
+					"value": {
+						"value": "@variables('last_modified_date_Array')[2]",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"Item_name_Array": {
+				"type": "Array"
+			},
+			"last_modified_date_Array": {
+				"type": "Array",
+				"defaultValue": []
+			},
+			"FIleName": {
+				"type": "String"
+			},
+			"lastmodified": {
+				"type": "String"
+			},
+			"final_date_array": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }
