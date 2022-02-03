@@ -1,6 +1,159 @@
 {
-	"name": "pipeline3",
+	"name": "pl_copydat_restAPI",
 	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://reqres.in/api/users",
+					"method": "GET"
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Web1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@range(1,activity('Web1').output.total_pages)",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "RestSource",
+									"httpRequestTimeout": "00:01:40",
+									"requestInterval": "00.00:00:00.010",
+									"requestMethod": "GET",
+									"paginationRules": {
+										"supportRFC5988": "true"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"path": "$['$data'][0]['id']"
+											},
+											"sink": {
+												"name": "id",
+												"type": "Int16"
+											}
+										},
+										{
+											"source": {
+												"path": "$['$data'][0]['email']"
+											},
+											"sink": {
+												"name": "email",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"path": "$['$data'][0]['first_name']"
+											},
+											"sink": {
+												"name": "first_name",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"path": "$['$data'][0]['last_name']"
+											},
+											"sink": {
+												"name": "lat_name",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"path": "$['$data'][0]['avatar']"
+											},
+											"sink": {
+												"name": "avatar",
+												"type": "String"
+											}
+										}
+									],
+									"collectionReference": "$['data']",
+									"mapComplexValuesToString": false
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "RestResource1",
+									"type": "DatasetReference",
+									"parameters": {
+										"Query_Parameters": {
+											"value": "?page=@{item()}",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_rest_api_sink",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "APIPage@{item()}.csv",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
 		"annotations": []
 	}
 }
