@@ -1,0 +1,12 @@
+{
+	"name": "SqlServer1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=DESKTOP-5URTGC1;initial catalog=workingdb;user id=\"Girish Chandra\"",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDJBMUExREMyLTI5M0UtNEUxQy04QjhCLTdGMzI4ODMyNDMwQ184MzE2ODQ3MS00OWNjLTQxNzEtOGE1NC1lN2FmODYwZGMzMjYiDQp9"
+		}
+	}
+}
