@@ -1,0 +1,33 @@
+{
+	"name": "pl_callfromanotherADF",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://management.azure.com/subscriptions/96fc8754-7693-4ecb-a21b-256007f560ef/resourceGroups/azPass/providers/Microsoft.DataFactory/factories/seconddatafactoryforgc/pipelines/pipeline1/createRun?api-version=2018-06-01",
+					"connectVia": {
+						"referenceName": "SelfHostedIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "POST",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
