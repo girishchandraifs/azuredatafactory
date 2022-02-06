@@ -5,8 +5,8 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=azuresqlservertestforgc.database.windows.net;initial catalog=workingdbforazure;user id=Girish",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4OGZiMDM4Mi02MjdlLTRlZWYtOTA0Ny0xNjNiOWRmODljZjYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=azuresqlservertestforgc.database.windows.net;initial catalog=workingdbforazure;user id=GirishChandra",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkZTM5ZjhmMi01NzY2LTQzOTktYjM1Ny04NGQ2ZWRlMjAxZjAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "SelfHostedIntegrationRuntime",
