@@ -19,7 +19,9 @@
 						"referenceName": "ds_input_folder",
 						"type": "DatasetReference"
 					},
-					"fieldList": [],
+					"fieldList": [
+						"itemName"
+					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
 						"recursive": true,
@@ -47,7 +49,9 @@
 						"referenceName": "ds_input_folder",
 						"type": "DatasetReference"
 					},
-					"fieldList": [],
+					"fieldList": [
+						"itemName"
+					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
 						"recursive": true,
