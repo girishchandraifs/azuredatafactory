@@ -15,9 +15,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"fieldList": [
-						"structure"
-					],
+					"dataset": {
+						"referenceName": "ds_input_folder",
+						"type": "DatasetReference"
+					},
+					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
 						"recursive": true,
@@ -41,9 +43,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"fieldList": [
-						"structure"
-					],
+					"dataset": {
+						"referenceName": "ds_input_folder",
+						"type": "DatasetReference"
+					},
+					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
 						"recursive": true,

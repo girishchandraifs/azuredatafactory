@@ -26,6 +26,10 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
+					"dataset": {
+						"referenceName": "ds_input_folder",
+						"type": "DatasetReference"
+					},
 					"firstRowOnly": false
 				}
 			},
