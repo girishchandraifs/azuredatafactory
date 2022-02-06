@@ -1,0 +1,23 @@
+{
+	"name": "pl_callfromanotheradf_webhook",
+	"properties": {
+		"activities": [
+			{
+				"name": "WebHook1",
+				"type": "WebHook",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://management.azure.com/subscriptions/ 96fc8754-7693-4ecb-a21b-256007f560ef/resourceGroups/azPass/providers/Microsoft.DataFactory/factories/seconddatafactoryforgc/pipelines/pipeline1/createRun?api-version=2018-06-01",
+					"method": "POST",
+					"timeout": "00:00:40",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
